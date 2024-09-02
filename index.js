@@ -27,9 +27,15 @@ app.use('/api', authRoutes);
 app.use('/api', protectedRoutes);
 app.use('/api', imageRoutes);
 
-app.use("/",(req,res)=>{
+app.get("/",(req,res)=>{
     res.send('Hello World\n');
 })
+// Error handling middleware
+app.use((err, req, res) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
 // Start the server
 const port = process.env.PORT || 7000;
 const hostname = process.env.HOSTNAME ;
