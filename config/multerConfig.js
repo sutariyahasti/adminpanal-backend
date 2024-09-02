@@ -30,37 +30,45 @@
 
 // module.exports = upload;
 
+// const multer = require('multer');
+// const path = require('path');
+
+// // Set up multer storage
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, 'uploads/'); // Directory where the files will be stored
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, Date.now() + path.extname(file.originalname)); // Filename with timestamp
+//   }
+// });
+
+// // File filter to validate image uploads
+// const fileFilter = (req, file, cb) => {
+//   const allowedTypes = /jpeg|jpg|png|gif/;
+//   const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+//   const mimetype = allowedTypes.test(file.mimetype);
+
+//   if (extname && mimetype) {
+//     return cb(null, true);
+//   } else {
+//     cb('Error: Images Only!');
+//   }
+// };
+
+// const upload = multer({ 
+//   storage: storage,
+//   fileFilter: fileFilter,
+//   limits: { fileSize: 5 * 1024 * 1024 } // 5MB file size limit
+// });
+
+// module.exports = upload;
+
 const multer = require('multer');
-const path = require('path');
 
-// Set up multer storage
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/'); // Directory where the files will be stored
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname)); // Filename with timestamp
-  }
-});
+// Configure Multer Storage to Use Memory Storage
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
-// File filter to validate image uploads
-const fileFilter = (req, file, cb) => {
-  const allowedTypes = /jpeg|jpg|png|gif/;
-  const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-  const mimetype = allowedTypes.test(file.mimetype);
-
-  if (extname && mimetype) {
-    return cb(null, true);
-  } else {
-    cb('Error: Images Only!');
-  }
-};
-
-const upload = multer({ 
-  storage: storage,
-  fileFilter: fileFilter,
-  limits: { fileSize: 5 * 1024 * 1024 } // 5MB file size limit
-});
-
+// Define the upload middleware to use in your routes
 module.exports = upload;
-

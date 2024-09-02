@@ -28,11 +28,7 @@ app.use('/api', imageRoutes);
 app.get("/",(req,res)=>{
     res.send('Hello World\n');
 })
-// Error handling middleware
-app.use((err, req, res) => {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
-});
+
 
 // Start the server
 const port = process.env.PORT || 7000;
