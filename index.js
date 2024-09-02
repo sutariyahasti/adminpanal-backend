@@ -6,6 +6,7 @@ const protectedRoutes = require('./routes/protectedRoutes');
 const imageRoutes = require('./routes/projectRoutes');
 const http = require('http')
 const cors = require('cors');
+const bodyParser = require('body-parser');
 require('dotenv').config();
 const app = express();
 const server = http.createServer(app);
@@ -16,6 +17,8 @@ connectDB();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json({ extend: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/uploads', express.static('uploads'));
 
 // Routes
