@@ -22,7 +22,7 @@ app.use('/api', authRoutes);
 app.use('/api', protectedRoutes);
 app.use('/api', imageRoutes);
 
-app.get("/",(req,res)=>{
+app.use("/",(req,res)=>{
     res.send('Hello World\n');
 })
 // Start the server
