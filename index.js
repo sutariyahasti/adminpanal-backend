@@ -4,9 +4,11 @@ const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
 const protectedRoutes = require('./routes/protectedRoutes');
 const imageRoutes = require('./routes/projectRoutes');
+const http = require('http')
 const cors = require('cors');
 require('dotenv').config();
 const app = express();
+const server = http.createServer(app);
 
 // Connect to MongoDB
 connectDB();
@@ -29,6 +31,6 @@ app.use("/",(req,res)=>{
 const port = process.env.PORT || 7000;
 const hostname = process.env.HOSTNAME ;
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Server running on port http://${hostname}:${port}`);
 });
